@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 
 @Dao
 interface InventoryDao {
@@ -19,4 +20,7 @@ interface InventoryDao {
 
     @Insert
     fun insertEquipment(obj: Equipment)
+
+    @Update
+    fun updateEquipment(obj: Equipment)
 }

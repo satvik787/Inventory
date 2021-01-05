@@ -24,9 +24,7 @@ class EquipmentListFragment:Fragment() {
     }
     private lateinit var qrScanner:IntentIntegrator
     private var navigation: Navigation? = null
-    companion object{
-        const val EquipmentId = "equipment_id"
-    }
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -36,6 +34,9 @@ class EquipmentListFragment:Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         qrScanner = IntentIntegrator.forSupportFragment(this)
+        qrScanner.setCaptureActivity(OrientationCaptureActivity::class.java)
+        qrScanner.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
+        qrScanner.setOrientationLocked(false)
         setHasOptionsMenu(true)
     }
 
@@ -61,6 +62,10 @@ class EquipmentListFragment:Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.scan_equipment){
             qrScanner.initiateScan()
+            return true
+        }else if(item.itemId == R.id.add_equipment){
+            println("DIPING")
+//            TODO add equipment. return true at end
         }
         return super.onOptionsItemSelected(item)
     }
@@ -77,7 +82,7 @@ class EquipmentListFragment:Fragment() {
             } else {
                 try {
                     val obj = JSONObject(result.contents)
-                    val a = obj.getInt(EquipmentId)
+                    val a = obj.getInt(EquipmentFragment.KEY_EQUIPMENT_ID)
                     navigation?.onNavigate(a)
                 } catch (e: JSONException) {
                     e.printStackTrace()

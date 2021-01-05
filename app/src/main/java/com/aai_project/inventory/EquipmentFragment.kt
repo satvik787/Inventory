@@ -1,17 +1,22 @@
 package com.aai_project.inventory
 
+import android.app.DatePickerDialog
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.DatePicker
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.aai_project.inventory.database.Equipment
+import java.util.*
 
-class EquipmentFragment:Fragment() {
+class EquipmentFragment:Fragment(),DatePickerDialog.OnDateSetListener {
 
     private val viewModel:EquipmentViewModel by lazy {
         ViewModelProvider(this).get(EquipmentViewModel::class.java)
@@ -21,9 +26,9 @@ class EquipmentFragment:Fragment() {
     private lateinit var nameText:TextView
     private lateinit var dateBtn:Button
     private lateinit var downloadBtn:Button
+    private lateinit var saveBtn:Button
     private lateinit var qrImage:ImageView
     private lateinit var equipment: Equipment
-
     companion object{
         const val KEY_EQUIPMENT_ID = "equipment_id"
     }
@@ -43,16 +48,73 @@ class EquipmentFragment:Fragment() {
         nameText = v.findViewById(R.id.text_equipment_name)
         downloadBtn = v.findViewById(R.id.btn_download)
         dateBtn = v.findViewById(R.id.btn_date)
+        saveBtn = v.findViewById(R.id.btn_save)
         qrImage = v.findViewById(R.id.qrImage)
         viewModel.getEquipment().observe(viewLifecycleOwner,{
             equipment = it
             updateUi(it)
         })
     }
+
+    override fun onStart() {
+        super.onStart()
+        serialText.addTextChangedListener(object: TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s.toString().isNotEmpty()){
+                    equipment.serialNumber = s.toString().toInt()
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+        })
+        nameText.addTextChangedListener(object: TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                equipment.equipmentName = s.toString()
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+        })
+
+        dateBtn.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            DatePickerDialog(requireContext(),this,
+                    calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.DAY_OF_MONTH)).show()
+        }
+
+        saveBtn.setOnClickListener {
+            viewModel.updateEquipment(equipment)
+        }
+    }
+
+
+
+    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+        val inMillis = Calendar.getInstance().apply {
+            set(year,month,dayOfMonth)
+        }.timeInMillis
+        equipment.dateOfInstallation = Date(inMillis)
+        dateBtn.text = equipment.dateOfInstallation.toString()
+    }
+
+
     private fun updateUi(obj: Equipment){
         serialText.text = obj.serialNumber.toString()
         nameText.text = obj.equipmentName
         dateBtn.text = obj.dateOfInstallation.toString()
     }
+
+
 
 }

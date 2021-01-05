@@ -2,6 +2,7 @@ package com.aai_project.inventory
 
 import android.content.Context
 import androidx.room.Room
+import com.aai_project.inventory.database.Equipment
 import com.aai_project.inventory.database.InventoryDatabase
 import java.util.concurrent.Executors
 
@@ -26,5 +27,10 @@ class InventoryRepository private constructor(context: Context) {
         fun get() = repository!!
     }
 
+    fun updateEquipment(obj: Equipment){
+        thread.execute {
+            dao.updateEquipment(obj)
+        }
+    }
 
 }

@@ -7,6 +7,10 @@ import com.aai_project.inventory.database.Equipment
 class EquipmentViewModel:ViewModel() {
     private lateinit var equipment:LiveData<Equipment>
 
+    fun updateEquipment(obj: Equipment){
+        InventoryRepository.get().updateEquipment(obj)
+    }
+
     fun initialize(id: Int){
         equipment = InventoryRepository.get().dao.getEquipment(id)
     }

@@ -5,6 +5,12 @@
       android:icon="@mipmap/qr_scan"
       app:showAsAction="ifRoom"
       android:id="@+id/scan_equipment"
-      android:title="@string/scan_qr">
-  </item>
+      android:title="@string/scan_qr"/>
+
+  <item
+      android:id="@+id/add_equipment"
+      android:title="@string/add_equipment"
+      app:showAsAction="never"
+      android:icon="@mipmap/add_icon"/>
+
 </menu>
