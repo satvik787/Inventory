@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">Inventory</string>
     <string name="add_equipment">Add</string>
     <string name="scan_qr">Scan Qr</string>
@@ -7,7 +8,7 @@
     <string name="equipment_details">Equipment Details</string>
     <string name="serial_number">Serial Number</string>
     <string name="equipment_name">Equipment Name</string>
-    <string name="btn_download">Download</string>
+    <string name="btn_generate">Generate QR</string>
     <string name="dis_qr">Qr Code</string>
     <string name="btn_save">Save</string>
 </resources>
