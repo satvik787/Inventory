@@ -13,8 +13,12 @@ class InventoryRepository private constructor(context: Context) {
         name
     ).build()
 
+
     val dao = database.getDao()
     private val thread = Executors.newSingleThreadExecutor()
+
+
+
     companion object{
         private const val name = "inventory_DB"
         private var repository:InventoryRepository? = null

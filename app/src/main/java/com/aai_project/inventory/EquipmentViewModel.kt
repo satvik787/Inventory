@@ -11,7 +11,7 @@ class EquipmentViewModel:ViewModel() {
         InventoryRepository.get().updateEquipment(obj)
     }
 
-    fun initialize(id: Int){
+    fun initialize(id: String){
         equipment = InventoryRepository.get().dao.getEquipment(id)
     }
     fun getEquipment() = equipment

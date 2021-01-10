@@ -3,6 +3,7 @@ package com.aai_project.inventory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
+import java.util.*
 
 class MainActivity : AppCompatActivity(),EquipmentListFragment.Navigation {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,10 +18,10 @@ class MainActivity : AppCompatActivity(),EquipmentListFragment.Navigation {
             .commit()
     }
 
-    override fun onNavigate(id: Int) {
+    override fun onNavigate(id: String) {
         val f = EquipmentFragment()
         f.arguments = Bundle().apply {
-            putInt(EquipmentFragment.KEY_EQUIPMENT_ID,id)
+            putString(EquipmentFragment.KEY_EQUIPMENT_ID,id)
         }
         supportFragmentManager.beginTransaction()
                 .replace(R.id.container,f)

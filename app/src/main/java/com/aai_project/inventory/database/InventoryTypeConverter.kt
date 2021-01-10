@@ -15,4 +15,14 @@ class InventoryTypeConverter {
             Date(it)
         }
     }
+
+    @TypeConverter
+    fun fromUUID(uuid: UUID):String{
+        return uuid.toString()
+    }
+
+    @TypeConverter
+    fun toUUID(string: String):UUID{
+        return UUID.fromString(string)
+    }
 }

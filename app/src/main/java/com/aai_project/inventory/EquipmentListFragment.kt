@@ -22,7 +22,7 @@ class EquipmentListFragment:Fragment() {
     private val viewModel:EquipmentListViewModel by lazy {
         ViewModelProvider(this).get(EquipmentListViewModel::class.java)
     }
-    private lateinit var qrScanner:IntentIntegrator
+    private lateinit var qrScanner:IntentIntegrator // zxing
     private var navigation: Navigation? = null
 
 
@@ -83,7 +83,7 @@ class EquipmentListFragment:Fragment() {
             } else {
                 try {
                     val obj = JSONObject(result.contents)
-                    val a = obj.getInt(EquipmentFragment.KEY_EQUIPMENT_ID)
+                    val a = obj.getString(EquipmentFragment.KEY_EQUIPMENT_ID)
                     navigation?.onNavigate(a)
                 } catch (e: JSONException) {
                     e.printStackTrace()
@@ -95,6 +95,7 @@ class EquipmentListFragment:Fragment() {
             super.onActivityResult(requestCode, resultCode, data)
         }
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
@@ -106,7 +107,6 @@ class EquipmentListFragment:Fragment() {
             adapter.notifyDataSetChanged()
         })
     }
-
 
 
     private inner class EquipmentAdapter(var list:List<Equipment>):RecyclerView.Adapter<EquipmentItemHolder>(){
@@ -127,10 +127,10 @@ class EquipmentListFragment:Fragment() {
         private val nameText = itemView.findViewById<TextView>(R.id.name)
         private val serialText = itemView.findViewById<TextView>(R.id.serial_number)
         private val dateText = itemView.findViewById<TextView>(R.id.installed_date)
-        private var id:Int = 0
+        private var id:UUID? = null
         init {
             itemView.setOnClickListener {
-                navigation?.onNavigate(id)
+                navigation?.onNavigate(id.toString())
             }
         }
         fun build(obj: Equipment){
@@ -146,7 +146,7 @@ class EquipmentListFragment:Fragment() {
     }
 
     interface Navigation{
-        fun onNavigate(id: Int)
+        fun onNavigate(id: String)
     }
 
 

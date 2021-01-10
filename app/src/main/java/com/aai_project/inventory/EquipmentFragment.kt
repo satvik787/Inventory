@@ -35,7 +35,7 @@ class EquipmentFragment:Fragment(),DatePickerDialog.OnDateSetListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.initialize(arguments?.getInt(KEY_EQUIPMENT_ID)!!)
+        viewModel.initialize(arguments?.getString(KEY_EQUIPMENT_ID)!!)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -60,6 +60,7 @@ class EquipmentFragment:Fragment(),DatePickerDialog.OnDateSetListener {
         super.onStart()
         serialText.addTextChangedListener(object: TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -95,6 +96,7 @@ class EquipmentFragment:Fragment(),DatePickerDialog.OnDateSetListener {
 
         saveBtn.setOnClickListener {
             viewModel.updateEquipment(equipment)
+//            TODO add toast 
         }
     }
 
