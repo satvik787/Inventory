@@ -66,6 +66,7 @@ class EquipmentListFragment:Fragment() {
         }else if(item.itemId == R.id.add_equipment){
             println("DIPING")
 //            TODO add equipment. return true at end
+
         }
         return super.onOptionsItemSelected(item)
     }
