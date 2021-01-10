@@ -1,16 +1,14 @@
 package com.aai_project.inventory.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
+import java.util.*
 
 @Dao
 interface InventoryDao {
 
     @Query("SELECT * FROM EQUIPMENT WHERE equipmentId = :id")
-    fun getEquipment(id: Int):LiveData<Equipment>
+    fun getEquipment(id: String):LiveData<Equipment>
 
     @Query("SELECT * FROM ServiceRecord WHERE ownerId = :id")
     fun getServiceRecords(id: Int):LiveData<List<ServiceRecord>>
@@ -23,4 +21,7 @@ interface InventoryDao {
 
     @Update
     fun updateEquipment(obj: Equipment)
+
+    @Delete
+    fun deleteEquipment(obj: Equipment)
 }

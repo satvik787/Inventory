@@ -35,7 +35,7 @@ class EquipmentFragment:Fragment(),DatePickerDialog.OnDateSetListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.initialize(arguments?.getInt(KEY_EQUIPMENT_ID)!!)
+        viewModel.initialize(arguments?.getString(KEY_EQUIPMENT_ID)!!)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

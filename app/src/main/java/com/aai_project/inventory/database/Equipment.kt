@@ -6,7 +6,7 @@ import java.util.*
 
 @Entity
 class Equipment(
-    @PrimaryKey(autoGenerate = true) val equipmentId: Int = 0,
+    @PrimaryKey val equipmentId: UUID = UUID.randomUUID(),
     var serialNumber: Int,
     var equipmentName: String,
     var dateOfInstallation: Date = Date(),
