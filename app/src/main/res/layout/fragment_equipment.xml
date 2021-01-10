@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/serial_number"
-        android:textColor="#32E0C4"
+        android:textColor="@color/default_blue"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/equipment_name"
-        android:textColor="#32E0C4"
+        android:textColor="@color/default_blue"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_serial" />
@@ -50,11 +50,11 @@
         app:layout_constraintTop_toBottomOf="@id/info_two" />
 
     <Button
+        style="@style/default_btn"
         android:id="@+id/btn_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:backgroundTint="#32E0C4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_equipment_name"
@@ -72,8 +72,10 @@
         android:src="@mipmap/qr_scan"
         app:layout_constraintBottom_toTopOf="@id/btn_download"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.947"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_date" />
+        app:layout_constraintTop_toBottomOf="@id/btn_date"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btn_download"
@@ -81,7 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:backgroundTint="#32E0C4"
+        style="@style/default_btn"
         android:text="@string/btn_download"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_save"
@@ -93,7 +95,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:backgroundTint="#32E0C4"
+        style="@style/default_btn"
         android:text="@string/btn_save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
