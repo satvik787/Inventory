@@ -100,7 +100,6 @@ class EquipmentListFragment:Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         val adapter = EquipmentAdapter(listOf())
-
         recyclerView.adapter = adapter
         viewModel.equipmentList.observe(viewLifecycleOwner,{
             adapter.list = it
