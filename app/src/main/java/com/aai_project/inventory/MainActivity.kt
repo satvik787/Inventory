@@ -11,12 +11,14 @@ class MainActivity : AppCompatActivity(),EquipmentListFragment.Navigation {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        if (supportFragmentManager.findFragmentById(R.id.container) == null){
+            val f = EquipmentListFragment()
+            f.setHasOptionsMenu(true)
+            supportFragmentManager.beginTransaction()
+                    .add(R.id.container,f)
+                    .commit()
+        }
 
-        val f = EquipmentListFragment()
-        f.setHasOptionsMenu(true)
-        supportFragmentManager.beginTransaction()
-            .add(R.id.container,f)
-            .commit()
     }
 
     override fun onNavigate(id: String) {

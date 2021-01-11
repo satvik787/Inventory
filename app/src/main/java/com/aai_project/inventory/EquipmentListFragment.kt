@@ -130,12 +130,11 @@ class EquipmentListFragment:Fragment() {
         private var equipment:Equipment? = null
 
         init {
-            //itemView.isLongClickable = true
             itemView.setOnClickListener {
                 navigation?.onNavigate(equipment?.equipmentId.toString())
             }
 
-            itemView.setOnLongClickListener{
+            itemView.setOnLongClickListener {
                 equipment?.let {
                     InventoryRepository.get().deleteEquipment(it)
                 }
@@ -143,6 +142,7 @@ class EquipmentListFragment:Fragment() {
                 true
             }
         }
+
         fun build(obj: Equipment){
             equipment = obj
             nameText.text = obj.equipmentName

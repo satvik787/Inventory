@@ -30,7 +30,7 @@ class EquipmentGen:Fragment(),DatePickerDialog.OnDateSetListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        equipment=viewModel.equipment
+        equipment = viewModel.equipment
 
 
     }
@@ -101,6 +101,8 @@ class EquipmentGen:Fragment(),DatePickerDialog.OnDateSetListener {
             }
         }
     }
+
+
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         val inMillis = Calendar.getInstance().apply {
             set(year,month,dayOfMonth)
