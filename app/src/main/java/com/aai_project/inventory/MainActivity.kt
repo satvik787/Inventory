@@ -3,6 +3,7 @@ package com.aai_project.inventory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
+
 import java.util.*
 
 class MainActivity : AppCompatActivity(),EquipmentListFragment.Navigation {
@@ -28,4 +29,13 @@ class MainActivity : AppCompatActivity(),EquipmentListFragment.Navigation {
                 .addToBackStack(null)
                 .commit()
     }
+
+    override fun onAdd() {
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.container,EquipmentGen())
+                .addToBackStack(null)
+                .commit()
+    }
+
+
 }

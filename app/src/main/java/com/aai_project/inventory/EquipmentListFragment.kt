@@ -22,6 +22,8 @@ class EquipmentListFragment:Fragment() {
     private val viewModel:EquipmentListViewModel by lazy {
         ViewModelProvider(this).get(EquipmentListViewModel::class.java)
     }
+
+    private lateinit var adapter:EquipmentAdapter
     private lateinit var qrScanner:IntentIntegrator // zxing
     private var navigation: Navigation? = null
 
@@ -64,9 +66,7 @@ class EquipmentListFragment:Fragment() {
             qrScanner.initiateScan()
             return true
         }else if(item.itemId == R.id.add_equipment){
-            println("DIPING")
-//            TODO add equipment. return true at end
-
+            navigation?.onAdd()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -100,7 +100,7 @@ class EquipmentListFragment:Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val adapter = EquipmentAdapter(listOf())
+        adapter = EquipmentAdapter(listOf())
         recyclerView.adapter = adapter
         viewModel.equipmentList.observe(viewLifecycleOwner,{
             adapter.list = it
@@ -127,14 +127,24 @@ class EquipmentListFragment:Fragment() {
         private val nameText = itemView.findViewById<TextView>(R.id.name)
         private val serialText = itemView.findViewById<TextView>(R.id.serial_number)
         private val dateText = itemView.findViewById<TextView>(R.id.installed_date)
-        private var id:UUID? = null
+        private var equipment:Equipment? = null
+
         init {
+            //itemView.isLongClickable = true
             itemView.setOnClickListener {
-                navigation?.onNavigate(id.toString())
+                navigation?.onNavigate(equipment?.equipmentId.toString())
+            }
+
+            itemView.setOnLongClickListener{
+                equipment?.let {
+                    InventoryRepository.get().deleteEquipment(it)
+                }
+                adapter.notifyDataSetChanged()
+                true
             }
         }
         fun build(obj: Equipment){
-            id = obj.equipmentId
+            equipment = obj
             nameText.text = obj.equipmentName
             serialText.text = "Serial# " + obj.serialNumber
             val c = Calendar.getInstance()
@@ -147,6 +157,7 @@ class EquipmentListFragment:Fragment() {
 
     interface Navigation{
         fun onNavigate(id: String)
+        fun onAdd()
     }
 
 

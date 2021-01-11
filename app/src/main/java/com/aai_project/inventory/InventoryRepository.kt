@@ -13,11 +13,8 @@ class InventoryRepository private constructor(context: Context) {
         name
     ).build()
 
-
     val dao = database.getDao()
     private val thread = Executors.newSingleThreadExecutor()
-
-
 
     companion object{
         private const val name = "inventory_DB"
@@ -33,6 +30,17 @@ class InventoryRepository private constructor(context: Context) {
     fun updateEquipment(obj: Equipment){
         thread.execute {
             dao.updateEquipment(obj)
+        }
+    }
+    fun insertEquipment(obj: Equipment){
+        thread.execute {
+            dao.insertEquipment(obj)
+        }
+    }
+
+    fun deleteEquipment(obj: Equipment){
+        thread.execute{
+            dao.deleteEquipment(obj)
         }
     }
 

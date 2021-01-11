@@ -15,4 +15,7 @@ class EquipmentViewModel:ViewModel() {
         equipment = InventoryRepository.get().dao.getEquipment(id)
     }
     fun getEquipment() = equipment
+
+
+
 }
