@@ -96,6 +96,12 @@ class EquipmentFragment:Fragment(),DatePickerDialog.OnDateSetListener {
             ).show()
 
         }
+
+        generateBtn.setOnClickListener {
+
+            val bitmap = InventoryRepository.get().generateQRCode("{equipment_id:${equipment.equipmentId.toString()}}")
+            qrImage.setImageBitmap(bitmap)
+        }
     }
 
 

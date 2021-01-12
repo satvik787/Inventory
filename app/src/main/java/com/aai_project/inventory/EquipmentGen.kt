@@ -7,10 +7,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.DatePicker
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.aai_project.inventory.database.Equipment
@@ -24,6 +21,7 @@ class EquipmentGen:Fragment(),DatePickerDialog.OnDateSetListener {
     private lateinit var dateBtn: Button
     private lateinit var generateBtn: Button
     private lateinit var saveBtn: Button
+    private lateinit var qrImage: ImageView
     private val viewModel:EquipmentGenViewModel by lazy {
         ViewModelProvider(this).get(EquipmentGenViewModel::class.java)
     }
@@ -46,6 +44,7 @@ class EquipmentGen:Fragment(),DatePickerDialog.OnDateSetListener {
         serialText = v.findViewById(R.id.text_serial)
         nameText = v.findViewById(R.id.text_equipment_name)
         generateBtn = v.findViewById(R.id.btn_generate)
+        qrImage = v.findViewById(R.id.qrImage)
         dateBtn = v.findViewById<Button>(R.id.btn_date).apply{
             text = equipment.dateOfInstallation.toString()
         }
@@ -99,6 +98,10 @@ class EquipmentGen:Fragment(),DatePickerDialog.OnDateSetListener {
                 ).show()
                 requireActivity().supportFragmentManager.popBackStackImmediate()
             }
+        }
+        generateBtn.setOnClickListener {
+            val bitmap = InventoryRepository.get().generateQRCode(equipment.equipmentId.toString())
+            qrImage.setImageBitmap(bitmap)
         }
     }
 

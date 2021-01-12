@@ -85,9 +85,8 @@ class EquipmentListFragment:Fragment() {
                     val obj = JSONObject(result.contents)
                     val a = obj.getString(EquipmentFragment.KEY_EQUIPMENT_ID)
                     navigation?.onNavigate(a)
-                } catch (e: JSONException) {
+                } catch (e: JSONException){
                     e.printStackTrace()
-
                     Toast.makeText(requireContext(), result.contents, Toast.LENGTH_LONG).show()
                 }
             }
@@ -153,6 +152,10 @@ class EquipmentListFragment:Fragment() {
             dateText.text = d
         }
 
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
     }
 
     interface Navigation{
