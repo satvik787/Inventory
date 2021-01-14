@@ -15,6 +15,7 @@ import com.aai_project.inventory.database.Equipment
 import com.google.zxing.integration.android.IntentIntegrator
 import org.json.JSONException
 import org.json.JSONObject
+import java.lang.Exception
 import java.util.*
 
 class EquipmentListFragment:Fragment() {
@@ -36,7 +37,8 @@ class EquipmentListFragment:Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         qrScanner = IntentIntegrator.forSupportFragment(this)
-        qrScanner.setCaptureActivity(OrientationCaptureActivity::class.java)
+        qrScanner.
+        setCaptureActivity(OrientationCaptureActivity::class.java)
         qrScanner.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
         qrScanner.setOrientationLocked(false)
         setHasOptionsMenu(true)
@@ -88,6 +90,12 @@ class EquipmentListFragment:Fragment() {
                 } catch (e: JSONException){
                     e.printStackTrace()
                     Toast.makeText(requireContext(), result.contents, Toast.LENGTH_LONG).show()
+                } catch (e: Exception){
+                    Toast.makeText(
+                            requireContext(),
+                            getString(R.string.result_not_found),
+                            Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }else{
@@ -101,9 +109,11 @@ class EquipmentListFragment:Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = EquipmentAdapter(listOf())
         recyclerView.adapter = adapter
-        viewModel.equipmentList.observe(viewLifecycleOwner,{
-            adapter.list = it
-            adapter.notifyDataSetChanged()
+        viewModel.equipmentList.observe(viewLifecycleOwner,{ list ->
+            list?.let{
+                adapter.list = it
+                adapter.notifyDataSetChanged()
+            }
         })
     }
 
@@ -154,9 +164,7 @@ class EquipmentListFragment:Fragment() {
 
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-    }
+
 
     interface Navigation{
         fun onNavigate(id: String)

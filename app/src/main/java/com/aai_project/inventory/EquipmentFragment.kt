@@ -47,9 +47,13 @@ class EquipmentFragment:Fragment(),DatePickerDialog.OnDateSetListener {
         dateBtn = v.findViewById(R.id.btn_date)
         saveBtn = v.findViewById(R.id.btn_save)
         qrImage = v.findViewById(R.id.qrImage)
-        viewModel.getEquipment().observe(viewLifecycleOwner,{
-            equipment = it
-            updateUi(it)
+        viewModel.getEquipment().observe(viewLifecycleOwner,  { equip ->
+            if(equip != null) {
+                this@EquipmentFragment.equipment = equip
+                updateUi(equip)
+            }else{
+                requireActivity().supportFragmentManager.popBackStackImmediate()
+            }
         })
     }
 
